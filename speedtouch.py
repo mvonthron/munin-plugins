@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+"""
+    speedtouch - A munin plugin for Thomson Speedtouch bandwith statistics
+
+    Copyright (C) 2013 Manuel Vonthron
+
+    Like Munin, this plugin is licensed under the GNU GPL v2 license
+    http://www.opensource.org/licenses/GPL-2.0
+"""
 
 import sys
 import urllib
