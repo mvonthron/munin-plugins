@@ -7,6 +7,8 @@ import contextlib
 
 MODEM_URL = "http://speedtouch.lan/cgi/b/dsl/dt/?be=0&l0=1&l1=0"
 
+convertDottedThousands = lambda x: x.replace('.', '').replace(',', '.')
+
 def autoconf():
     """not supported right now"""
     pass
@@ -14,6 +16,11 @@ def autoconf():
 def config():
     print "graph_title Broadband statistics"
     print "graph_category Network"
+    print "graph_vlabel Bandwidth"
+    print "graph_args --base 1000 -l 0"
+
+    print "up.label Up (kbps)"
+    print "down.label Down (kbps)"
 
 def main():
     """
@@ -26,10 +33,9 @@ def main():
 
         r = re.compile(r'Bandwidth \(Up\/Down\) \[.*\]\:\s*(-?\d+\.?\d*) \/ (-?\d+\.?\d*)')
         res = r.findall(content)
-        print res
 
         if res:
-            return res[0]
+            return map(convertDottedThousands, res[0])
         else:
             return None, None
 
@@ -37,8 +43,10 @@ def main():
         content = u.read()
 
     content = cleanup(content)
-    down, up = bandwidth(content)
-    print down, up
+    up, down = bandwidth(content)
+
+    print "up.value", up
+    print "down.value", down
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
