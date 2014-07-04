@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """
-    speedtouch - A munin plugin for Thomson Speedtouch bandwith statistics
+    youtube_subscribed - A munin plugin to count youtube subscriptions
+    copy/move/symlink the script so it gets the name of the channel as youtube_subscribed_<channelname>
 
-    Copyright (C) 2013 Manuel Vonthron
+    Copyright (C) 2014 Manuel Vonthron
 
     Like Munin, this plugin is licensed under the GNU GPL v2 license
     http://www.opensource.org/licenses/GPL-2.0
@@ -44,7 +45,7 @@ def main(channel):
         else:
             return None
 
-    with contextlib.closing(urllib.urlopen(''.join([BASE_URL, channel]))) as u:
+    with contextlib.closing(urllib.urlopen(''.join([BASE_URL, channel, "/about"]))) as u:
         content = u.read()
 
     count = countSubscribed(content)
