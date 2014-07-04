@@ -52,12 +52,13 @@ def main(channel):
     print "count.value", count
 
 if __name__ == "__main__":
-    if not sys.argv[0].startswith(BASE_PLUGIN_NAME) or sys.argv[0].split('.')[0] == BASE_PLUGIN_NAME:
+    channel = sys.argv[0].split("_")[-1].split(".")[0]
+    
+    if not channel:
         print "Plugin must have name formatted like: \"%s_<username>[.py]\"" % BASE_PLUGIN_NAME
         sys.exit(1)
     
-    channel = sys.argv[0].split('.')[0][len(BASE_PLUGIN_NAME):]
-    
+       
     if len(sys.argv) == 2:
         if sys.argv[1] == "config":
             config(channel)
