@@ -24,9 +24,9 @@ def autoconf():
     pass
 
 def config(channel):
-    print "graph_title Broadband statistics"
     print "graph_category Other"
-    print "graph_vlabel Subs for %s" % channel.title()
+    print "host_name house"
+    print "graph_title Subscriptions for %s" % channel.title()
     print "graph_args --base 1000 -l 0"
 
     print "count.label Subscriptions"
@@ -37,7 +37,7 @@ def main(channel):
 
     def countSubscribed(text):
         """example: <span class="yt-subscription-button-subscriber-count-branded-horizontal subscribed" >80</span>"""
-        r = re.compile(r'<span class=\"yt-subscription-button-subscriber-count-branded-horizontal subscribed\" >([1-9](?:\d{0,2})(?:,\d{3})*)</span>')
+        r = re.compile(r'<span class=\"yt-subscription-button-subscriber-count-branded-horizontal subscribed\".*>([1-9](?:\d{0,2})(?:,\d{3})*)</span>')
         res = r.findall(content)
         
         if res:
